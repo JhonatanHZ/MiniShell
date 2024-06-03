@@ -2,7 +2,15 @@
 
 int main(){
 
-    printf("Hola Jhonatan");
+    char* input;
+
+    for(;;){
+        scanf(input);
+
+        if(input == "salir"){
+            break;
+        }
+    }
 
     return 0;
 }
