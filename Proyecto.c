@@ -1,16 +1,45 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <sys/types.h>
+#include <string.h>
+#include <unistd.h>
 
-int main(){
+void executeCommand(char *command, char *argumentArray[]){
+    execvp(command, argumentArray);
+}
 
-    char* input;
+void readLine(char input[]){ 
+    char *argumentArray[20];
+    int argumentIndex = 0;
+    char *argument = strtok(input, " \n");
+    argumentArray[argumentIndex] = argument;
+    argumentIndex++;
 
-    for(;;){
-        scanf(input);
-
-        if(input == "salir"){
-            break;
+    if(argument != NULL){
+        while(argument != NULL){
+            argument = strtok(NULL, " \n");
+            argumentArray[argumentIndex] = argument;
+            argumentIndex++;
         }
     }
 
-    return 0;
+    if(argumentIndex == 1){
+        executeCommand(argumentArray[0], NULL);
+    }
+    else{
+        executeCommand(argumentArray[0], argumentArray);
+    }
+}
+
+void readUserInput(){
+    char input[200];
+    fgets(input, sizeof(input), stdin);
+    
+    readLine(input);
+}
+
+int main(){
+   readUserInput();
 }
