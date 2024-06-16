@@ -7,7 +7,10 @@
 #include <unistd.h>
 
 void executeCommand(char *command, char *argumentArray[]){
-    execvp(command, argumentArray);
+    if(execvp(command, argumentArray) == -1){
+        exit(0);
+        
+    }
 }
 
 void readLine(char input[]){ 
@@ -35,11 +38,23 @@ void readLine(char input[]){
 
 void readUserInput(){
     char input[200];
-    fgets(input, sizeof(input), stdin);
-    
-    readLine(input);
+    pid_t child;
+    while(1){
+        fgets(input, sizeof(input), stdin);
+        if(strcmp(input, "salir\n") != 0){
+            child = fork();
+            if(child == 0){
+                readLine(input);
+            }
+            else{
+                wait(NULL);
+            }
+        }
+        else{
+            return;
+        }
+    }
 }
-
 int main(){
    readUserInput();
 }
