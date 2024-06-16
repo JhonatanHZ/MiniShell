@@ -11,8 +11,6 @@ bool inputValidation(char program[], char *arguments[], int size){
         return 0;
     }
 
-    
-
     return 1;
 }
 
@@ -76,7 +74,7 @@ void readLine(char input[]){
 
     int sizeOfFirstProgram = positionOfOperator;
     int sizeOfSecondProgram = argumentIndex - positionOfOperator -2;
-    
+
     if(positionOfOperator == 0){
         executeProgram(argumentsFirstProgram, sizeOfFirstProgram);
     }
