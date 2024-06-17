@@ -7,8 +7,12 @@
 #include <unistd.h>
 
 bool inputValidation(char program[], char *arguments[], int size){
-    if((int) program[0] < 65 || (int) program[0] > 122){
-        return 0;
+    
+    if(size == 1){
+        return executeCommand(arguments[0], NULL) + 1;
+    }
+    else{
+        return executeCommand(arguments[0], arguments) + 1;
     }
 
     return 1;
