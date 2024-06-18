@@ -72,6 +72,59 @@ void readLine(char input[], pid_t mainProcess){
     }
     else if(strcmp(argumentArray[positionOfOperator], "|") == 0){
         //Pipe
+        int pipefd[2];
+        pipe(pipefd);
+        int statusFirstChild;
+        int statusSecondChild;
+
+        pid_t firstChild = fork();
+        if(firstChild == 0){
+            if(sizeOfFirstProgram == 1){
+                close(pipefd[0]);
+                dup2(pipefd[1], STDOUT_FILENO);
+                close(pipefd[1]);
+                execvp(argumentsFirstProgram[0], NULL);
+                exit(-1);
+            }
+            else{
+                close(pipefd[0]);
+                dup2(pipefd[1], STDOUT_FILENO);
+                close(pipefd[1]);
+                execvp(argumentsFirstProgram[0], argumentsFirstProgram);
+                exit(-1);
+            }
+        }
+        else{  
+            waitpid(firstChild, &statusFirstChild, 0);
+            if(statusFirstChild != 0){
+                printf("ERROR: Invalid command.\n");
+            }
+            else{
+                pid_t secondChild = fork();
+                if(secondChild == 0){
+                    if(sizeOfFirstProgram == 1){
+                        close(pipefd[1]);
+                        dup2(pipefd[0], STDIN_FILENO);
+                        close(pipefd[0]);
+                        execvp(argumentsSecondProgram[0], NULL);
+                        exit(-1);
+                    }
+                    else{
+                        close(pipefd[1]);
+                        dup2(pipefd[0], STDIN_FILENO);
+                        close(pipefd[0]);
+                        execvp(argumentsSecondProgram[0], argumentsSecondProgram);
+                        exit(-1);
+                    }
+                }
+                close(pipefd[0]);
+                close(pipefd[1]);
+                waitpid(secondChild, &statusSecondChild, 0);
+                if(statusSecondChild != 0){
+                    printf("ERROR: Invalid command.\n");
+                }
+            }
+        }
     }
     else if(strcmp(argumentArray[positionOfOperator], "||") == 0){
         if(executeProgram(argumentsFirstProgram, sizeOfFirstProgram) == -1){
