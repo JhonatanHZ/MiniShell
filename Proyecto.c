@@ -182,5 +182,6 @@ void readUserInput(){
     }
 }
 int main(){
+
    readUserInput();
 }
