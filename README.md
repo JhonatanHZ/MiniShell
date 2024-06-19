@@ -28,6 +28,6 @@ Dependiendo del distrito de Linux en el que se compile y ejecute este código, p
 
 * Mint: Compila y se ejecuta sin problemas.
 
-* Lubuntu: Compila y se ejecuta pero los operadores && y || no funcionan en este distro.
+* Lubuntu: Compila y se ejecuta sin problemas. Sin embargo, no funciona en versiones de Lubuntu antigüas.
 
 Es importante destacar que originalmente este código fue testeado y creado usando WSL (Windows Subsystem Linux). Específicamente WLS: Ubuntu. Adicionalmente, una aclaratoria respecto al comando _grep_ es que distingue entre una cadena de caracteres con comillas y sin comillas. Es decir, "Hola" es diferente de Hola. 
