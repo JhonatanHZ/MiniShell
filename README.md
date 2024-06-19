@@ -16,7 +16,7 @@ Junto con este README.md también está adjunto un **makefile** para compilar, e
 
 4. Llegado a este punto se debe haber generado un ejecutable en la carpeta donde se compiló el código fuente. Ahora se ejecuta el comando _./Proyecto_.
 
-5. El programa empezará a ejecutarse, esperará una comando por parte del usuario (ls, pwd, date, touch, make, entre otros).
+5. El programa empezará a ejecutarse, esperará un comando por parte del usuario (ls, pwd, date, touch, make, entre otros).
 
 ## IMPORTANTE: Consideraciones sobre la ejecución del Minishell
 
